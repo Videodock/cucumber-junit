@@ -7,6 +7,10 @@ var argv = require('yargs')
     .alias('s', 'strict')
     .boolean('s')
     .describe('s', 'Report pending or undefined steps as failures')
+    .alias('p', 'prefix')
+    .default('p', '')
+    .string('p')
+    .describe('p', 'Package prefix')
     .alias('i', 'indent')
     .default('i', 4)
     .describe('i', 'The number of spaces to indent the JSON')
@@ -30,7 +34,8 @@ process.stdin.on('end', function() {
     var options = {
         indent: Array(argv.indent + 1).join(' '),
         strict: argv.strict,
-        declaration: { encoding: argv.encoding }
+        declaration: { encoding: argv.encoding },
+        prefix: argv.prefix
     };
 
     process.stdout.write(cucumber_junit(rawInput, options));
