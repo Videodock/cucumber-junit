@@ -11,6 +11,10 @@ var argv = require('yargs')
     .default('p', '')
     .string('p')
     .describe('p', 'Package prefix')
+    .alias('d', 'directory')
+    .default('d', 'screenshots')
+    .string('d')
+    .describe('d', 'Screenshot directory')
     .alias('i', 'indent')
     .default('i', 4)
     .describe('i', 'The number of spaces to indent the JSON')
@@ -35,7 +39,8 @@ process.stdin.on('end', function() {
         indent: Array(argv.indent + 1).join(' '),
         strict: argv.strict,
         declaration: { encoding: argv.encoding },
-        prefix: argv.prefix
+        prefix: argv.prefix,
+        directory: argv.directory
     };
 
     process.stdout.write(cucumber_junit(rawInput, options));
